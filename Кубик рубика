@@ -1,0 +1,95 @@
+using System;
+
+using System.Text;
+
+
+class Programm
+{
+    static void Main()
+    {
+        using (StreamReader sr = new StreamReader(@"D:\Studying\Олимпиадки\кубик рубика\test.txt", Encoding.UTF8))
+        {
+            string[] mass = sr.ReadLine().Split(' ');
+            int n = int.Parse(mass[0]);
+            int vrash = int.Parse(mass[1]);
+            string[] mas = sr.ReadLine().Split();
+            int _1 = int.Parse(mas[0]), _2 = int.Parse(mas[1]),_3 = int.Parse(mas[2]);
+            string str = null;
+            while ((str = sr.ReadLine()) != null)
+            {
+                string[] data = str.Split(' ');
+                int a = 0;
+                string osi = data[0];
+                int num_block = int.Parse(data[1]), pov = int.Parse(data[2]);
+                int q = _1, w = _2, e = _3;
+                Console.WriteLine("нач");
+                Console.WriteLine(_1 + " ");
+                Console.WriteLine(_2 + " ");
+                Console.WriteLine(_3);
+                if (pov == -1)
+                {
+                    Console.WriteLine("в -1");
+                    if (osi == "X")
+                    {
+                        Console.WriteLine("в X");
+                        _1 = num_block;
+                        _2 = (n + 1) - e;
+                        _3 = w;
+                    }
+                    else if (osi == "Y")
+                    {
+                        Console.WriteLine("в Y");
+                        _1 = (n + 1) - e;
+                        _2 = num_block;
+                        _3 = q;
+                    }
+                    else
+                    {
+                        Console.WriteLine("в Z");
+                        _1 = (n + 1) - w;
+                        _2 = q;
+                        _3 = num_block;
+                    }
+                    Console.Write(_1 + " ");
+                    Console.Write(_2 + " ");
+                    Console.Write(_3);
+                }
+                else
+                {
+                    Console.WriteLine("в 1");
+                    if (osi == "X")
+                    {
+                        Console.WriteLine("в X");
+                        _1 = num_block;
+                        _2 = e;
+                        _3 = (n+1) - w;
+                    }
+                    else if (osi == "Y")
+                    {
+                        Console.WriteLine("в Y");
+                        _1 = e;
+                        _2 = num_block;
+                        _3 = (n + 1) - q;
+                    }
+                    else
+                    {
+                        Console.WriteLine("в Z");
+                        _1 = w;
+                        _2 = (n + 1) - q;
+                        _3 = num_block;
+                    }
+                    Console.Write(_1 + " ");
+                    Console.Write(_2 + " ");
+                    Console.Write(_3);
+                }
+                Console.WriteLine();
+            }
+            using (StreamWriter sw = new StreamWriter(@"D:\Studying\Олимпиадки\кубик рубика\vivod.txt", true, Encoding.UTF8))
+            {
+                sw.Write(_1+" ");
+                sw.Write(_2 + " ");
+                sw.Write(_3);
+            }
+        }
+    }
+}
