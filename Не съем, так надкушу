@@ -1,0 +1,29 @@
+with open('worm.txt', 'r') as file:
+    A, B = map(int, file.readline().split())
+    C, D = [0] * B, [0] * B
+    tree = [[float('inf') if i != j else 0 for j in range(A + 1)] for i in range(A + 1)]
+    
+    for i in range(A):
+        K, L = map(int, file.readline().split())
+        tree[K][i+1] = tree[i+1][K] = L
+    
+    for j in range(B):
+        C[j], D[j] = map(int, file.readline().split())
+    X, Z = map(int, file.readline().split())
+
+for n in range(A + 1):
+    for i in range(A + 1):
+        for j in range(A + 1):
+            tree[i][j] = min(tree[i][n] + tree[n][j], tree[i][j])
+[C.pop(x) and D.pop(x) for x in range(B) if D[x] < Z]
+
+answer = 0
+
+while C:
+    aim = min([(tree[X][c], c) for c in C])
+    answer += aim[0]
+    X = aim[1]
+    C.remove(aim[1])
+    
+with open('worm_answer.txt', 'w') as end_file:
+    end_file.write(str(answer))
