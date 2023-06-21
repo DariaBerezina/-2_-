@@ -1,0 +1,34 @@
+employee = dict(); names = dict(); nums = dict()
+with open('company.txt', 'r') as f:
+    for count, str in enumerate(iter(f.readline, 'END\n')):
+        if count % 2 == 0:
+            headmaster = str.strip()
+            if len(headmaster) != 4:
+                headmaster, master_name = headmaster.split(' ', 1)
+                names[headmaster] = master_name
+                nums[master_name] = headmaster
+            if not(headmaster in names.keys()):
+                names[headmaster] = 'Unknown Name'
+        else:
+            subordinate = str.strip()
+            if len(subordinate) != 4:
+                subordinate, sub_name = subordinate.split(' ', 1)
+                names[subordinate] = sub_name
+            if not(subordinate in names.keys()):
+                names[subordinate] = 'Unknown Name'
+
+            if headmaster in employee.keys():
+                employee[headmaster].append(subordinate)
+            else:
+                employee[headmaster] = [subordinate]
+    HeadMaster = [f.readline()]
+if not(HeadMaster[0].isdigit()):
+    HeadMaster = [nums[HeadMaster[0]]]
+
+answer = []
+while HeadMaster:
+    result = []
+    [answer.extend(employee[t]) and result.extend(employee[t]) for t in HeadMaster if (t in employee.keys())]
+    HeadMaster = result
+temp_answ = sorted([f'{n} {names[n]}' for n in answer])
+print(answer)
