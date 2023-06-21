@@ -1,0 +1,84 @@
+using System;
+
+namespace Spider_Fly
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] data = Console.ReadLine().Split();
+            int q = Convert.ToInt32(data[0]), w = Convert.ToInt32(data[1]), e = Convert.ToInt32(data[2]);
+
+            data = Console.ReadLine().Split();
+            int ox = Convert.ToInt32(data[0]), oy = Convert.ToInt32(data[1]), oz = Convert.ToInt32(data[2]);
+
+
+            data = Console.ReadLine().Split();
+            int fx = Convert.ToInt32(data[0]), fy = Convert.ToInt32(data[1]), fz = Convert.ToInt32(data[2]);
+
+            int x = 0, y = 0, z = 0;
+
+            if (ox == fx)
+            {
+                y = (oy - fy);
+                z = (oz - fz);
+            }
+            if (oy == fy)
+            {
+                x = (ox - fx);
+                z = (oz - fz);
+            }
+            if (oz == fz)
+            {
+                y = (oy - fy);
+                x = (ox - fx);
+            }
+
+            if (((oz == e || oz == 0) && (fx == q || fx == 0)) || ((fz == e || fz == 0) && (ox == q || ox == 0)))
+            {
+                if ((oz == e && fx == 0) || (fz == e && ox == q))
+                {
+                    x = (e - fz) + (ox);
+                    y = oy - fy;
+                }
+                if ((fz == e && ox == 0) || (oz == e && fx == q))
+                {
+                    x = (e - oz) + (fx);
+                    y = fy - oy;
+                }
+            }
+
+            if (((oz == e || oz == 0) && (fy == w || fy == 0)) || ((fz == e || fz == 0) && (oy == w || oy == 0)))
+            {
+                if ((oz == e && fy == 0) || (fz == e && oy == w))
+                {
+                    y = (e - fz) + (oy);
+                    x = ox - fx;
+                }
+                if ((fz == e && oy == 0) || (oz == e && fy == w))
+                {
+                    y = (e - oz) + (fy);
+                    x = fx - ox;
+                }
+            }
+
+            if (((ox == q || ox == 0) && (fx == q || fx == 0)) || ((fx == q || fx == 0) && (ox == q || ox == 0)))
+            {
+                if ((ox == q && fx == 0) || (fx == q && ox == 0))
+                {
+                    z = e - fz + e - oz;
+                    y = w;
+                    x = fx - ox;
+                }
+                if ((fy == w && oy == 0) || (oy == w && fy == 0))
+                {
+                    z = e - fz + e - oz;
+                    x = q;
+                    y = fy - oy;
+                }
+            }
+
+            Console.WriteLine("Расстояние = " + Math.Sqrt(x * x + y * y + z * z));
+        }
+    }
+}
