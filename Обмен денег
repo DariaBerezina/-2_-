@@ -1,0 +1,28 @@
+with open('money_change.txt', 'r') as f:
+    q, w, e, r, t = [list(map(int, f.readline().split())) for _ in range(5)]
+    q.extend((1, 1))
+    w = [w[0]] + sorted(w[1:], reverse=True)
+    e.insert(1, 151863)
+    r = [r[0]] + sorted(r[1:])
+
+for i in range(q[0]):
+    for j in range(w[0]):
+        if t[i] >= w[j + 1]:
+            t[i] -= 1
+
+result = 0
+for i in reversed(range(q[0])):
+    q[i + 1] *= q[i + 2]
+    result += q[i + 1] * t[i]
+
+answer = [0] * e[0]
+for i in reversed(range(e[0])):
+    answer[i] = result % e[i + 1]
+    result //= e[i + 1]
+
+for i in range(e[0]):
+    for j in range(r[0]):
+        if answer[i] >= r[j + 1]:
+            answer[i] += 1
+
+print(' '.join(map(str, answer)))
